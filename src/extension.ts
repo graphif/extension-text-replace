@@ -10,28 +10,42 @@ await prg.keybinds_register(
     }
     const sm = await project.stageManager;
 
-    const textNodes = await sm.getTextNodes();
-    const edges = await sm.getEdges();
-    const imageNodes = await sm.getImageNodes();
-    const svgNodes = await sm.getSvgNodes();
-    const penStrokes = await sm.getPenStrokes();
-    const urlNodes = await sm.getUrlNodes();
-    const latexNodes = await sm.getLatexNodes();
-    const sections = await sm.getSections();
-    const associations = await sm.getAssociations();
-    const connectPoints = await sm.getConnectPoints();
-    const lineEdges = await sm.getLineEdges();
-    const crEdges = await sm.getCrEdges();
+    const [
+      textNodes,
+      edges,
+      imageNodes,
+      svgNodes,
+      penStrokes,
+      urlNodes,
+      latexNodes,
+      sections,
+      associations,
+      connectPoints,
+      lineEdges,
+      crEdges,
+    ] = await Promise.all([
+      sm.getTextNodes(),
+      sm.getEdges(),
+      sm.getImageNodes(),
+      sm.getSvgNodes(),
+      sm.getPenStrokes(),
+      sm.getUrlNodes(),
+      sm.getLatexNodes(),
+      sm.getSections(),
+      sm.getAssociations(),
+      sm.getConnectPoints(),
+      sm.getLineEdges(),
+      sm.getCrEdges(),
+    ]);
 
-    let totalChars = 0;
-    for (const node of textNodes) {
-      totalChars += (await node.text).length;
-    }
-
-    let edgeChars = 0;
-    for (const edge of edges) {
-      edgeChars += (await edge.text).length;
-    }
+    const [nodeChars, edgeChars] = await Promise.all([
+      Promise.all(textNodes.map((n) => n.text)).then((texts) =>
+        texts.reduce((sum, t) => sum + t.length, 0),
+      ),
+      Promise.all(edges.map((e) => e.text)).then((texts) =>
+        texts.reduce((sum, t) => sum + t.length, 0),
+      ),
+    ]);
 
     const totalNodes =
       textNodes.length +
@@ -63,9 +77,9 @@ await prg.keybinds_register(
       `  笔触: ${penStrokes.length}`,
       ``,
       `文字统计：`,
-      `  节点文字总字符数: ${totalChars}`,
+      `  节点文字总字符数: ${nodeChars}`,
       `  连线文字总字符数: ${edgeChars}`,
-      `  总字符数: ${totalChars + edgeChars}`,
+      `  总字符数: ${nodeChars + edgeChars}`,
     ].join("\n");
 
     await prg.dialog_copy("复杂度分析结果", "", stats);
