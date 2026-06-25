@@ -2,9 +2,7 @@
 
 统计舞台上内容的复杂度等等信息
 
-## Development
+## 使用方法
 
-- `pnpm build` — Build the extension
-- `pnpm dev` — Watch mode with auto-install
-- `pnpm package` — Package the extension for distribution
-- `pnpm install:ext` — Install the extension into Project Graph
+使用快捷键可以弹出一个复杂度统计窗口，用来查看当前的舞台信息
+
