@@ -1,8 +1,8 @@
 {
-  "name": "extension-complexity-analysis",
-  "displayName": "Complexity Analysis",
+  "name": "extension-text-replace",
+  "displayName": "Text Replace",
   "version": "0.0.1",
-  "description": "统计舞台上内容的复杂度等等信息",
+  "description": "一键替换舞台上所有文本节点和分组框标题中的指定文本片段",
   "author": "littlefean <2028140990@qq.com>",
   "devDependencies": {
     "extprg": "^1.0.0",
