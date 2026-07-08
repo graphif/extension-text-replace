@@ -1,0 +1,18 @@
+{
+  "name": "extension-text-replace",
+  "displayName": "Text Replace",
+  "version": "0.0.1",
+  "description": "一键替换舞台上所有文本节点和分组框标题中的指定文本片段",
+  "author": "littlefean <2028140990@qq.com>",
+  "devDependencies": {
+    "extprg": "^1.0.0",
+    "extprg-types": "^1.0.7",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "build": "extprg build",
+    "dev": "extprg dev",
+    "package": "extprg package",
+    "install:ext": "extprg install"
+  }
+}
